@@ -1,5 +1,7 @@
 //run these code as https://www.linkedin.com/posts/sayed-mohammed-75159a256_webdevelopment-restfulapi-expressjs-activity-7212817409617903616-BpCe?utm_source=share&utm_medium=member_desktop
 //for better appearence run get http method on browser
+//save file with .js extension on node js for execution
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
