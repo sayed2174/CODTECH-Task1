@@ -1,11 +1,17 @@
 # CODTECK-Task1
  
 **Name:** Sayed Mohammed
+
 **Company:** CODTECH IT SOLUTIONS
+
 **ID:** CT6WDS91
+
 **Domain:** BACKEND DEVELOPMENT
+
 **Duration:** 6 WEEKS [1st JUNE 2024 to 13Th JULY 2024]
+
 **Mentor:** 
+
 
 # Simple Movie Rental RESTful API
 Overview
