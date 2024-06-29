@@ -1,4 +1,12 @@
 # CODTECK-Task1
+ 
+**Name:** Sayed Mohammed
+**Company:** CODTECH IT SOLUTIONS
+**ID:** CT6WDS91
+**Domain:** BACKEND DEVELOPMENT
+**Duration:** 6 WEEKS [1st JUNE 2024 to 13Th JULY 2024]
+**Mentor:** 
+
 # Simple Movie Rental RESTful API
 Overview
     This project demonstrates the creation of a simple RESTful API for managing a movie rental database using Express.js (Node.js). The API provides functionality for registering movies, retrieving movie details, updating movie status, and deleting movies from the database.
