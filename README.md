@@ -14,7 +14,7 @@
 
 
 # Simple Movie Rental RESTful API
-Overview
+**Overview**
     This project demonstrates the creation of a simple RESTful API for managing a movie rental database using Express.js (Node.js). The API provides functionality for registering movies, retrieving movie details, updating movie status, and deleting movies from the database.
 
 # Features
