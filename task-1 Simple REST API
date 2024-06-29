@@ -1,0 +1,123 @@
+//run these code as https://www.linkedin.com/posts/sayed-mohammed-75159a256_webdevelopment-restfulapi-expressjs-activity-7212817409617903616-BpCe?utm_source=share&utm_medium=member_desktop
+//for better appearence run get http method on browser
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+const app = express();
+const port = 3000;
+let registrations = require("./movies.json");
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/database',(req,res)=>{
+    res.send(htmlTableContent(registrations));
+});
+
+app.get('/database/get/:rented',(req,res)=>{
+    let data = registrations.filter(c => c.status == req.params.rented);
+    let table =htmlTableContent(data);
+    if(!data) return res.send(errorMessage(parseInt(req.params.movieid)));
+    res.send(table);
+});
+
+app.get('/database/:movieid',(req,res)=>
+    {
+        let data = registrations.find(c => c.movieid === parseInt(req.params.movieid));
+        if(!data) return res.send(errorMessage(parseInt(req.params.movieid))).status(404);
+        if(data.status=="rented") return res.send(rentedMessage(parseInt(req.params.movieid))).status(201);
+        res.send(data);
+});
+
+app.post('/register',(req,res)=>
+{
+    let {movieid,movie,status}=req.body;
+    let data ={
+        "movieid":parseInt(movieid),
+        "movie":movie,
+        "status":status
+    };
+    if(data)
+        {
+            
+
+            registrations.push(data);
+            res.send({message : "Registration successfull..."});
+            console.log("data inserted :",data);
+            return ;
+        }
+        else
+    res.send({message:"All Fields are required..."}).status(404);
+});
+app.put('/database/:movieid',(req,res)=>
+{
+    let data = registrations.find(c => c.movieid === parseInt(req.params.movieid));
+    if(!data) return res.send(errorMessage(parseInt(req.params.movieid))).status(404);
+    if(data.status=="rented") return res.send(errorMessage(parseInt(req.params.movieid))).status(201);
+    data.status="rented";
+    res.send(data);
+});
+
+app.delete('/database/delete/:movieid',(req,res)=>
+{
+    let data = registrations.find(c => c.movieid === parseInt(req.params.movieid));
+    if(!data) return res.send("Error Movie Id is not valid").status(404);
+    let idx = registrations.indexOf(data);
+    registrations.splice(idx,1);
+    res.send(registrations);
+
+});
+
+function htmlTableContent(data)
+{
+    let html = `
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+    <table>
+      <tr>
+        <th>Movie ID</th>
+        <th>Movie Name</th>
+        <th>Rent Status</th>
+      </tr>
+      ${data.map(c=> `<tr><td> ${c.movieid} </td> <td>${c.movie} </td> <td> ${c.status} </td></tr>`).join(" ")}
+      
+    </table>
+  `;
+  return html;
+};
+
+//to show error message function
+function errorMessage(id){
+    return `
+        <script type = "text/javascript">
+            alert ("Invalid Movie Id : ${id}...");
+        </script>
+    `;
+};
+
+//to show rented movies message
+function rentedMessage(id){
+    return `
+        <script type = "text/javascript">
+            alert ("Already rented Movie Id : ${id}...");
+        </script>
+    `;
+};
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
